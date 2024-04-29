@@ -1,6 +1,5 @@
-// controllers/searchController.js
-
-const { User, Contact } = require('../db');
+const { User } = require('../../models/userModel');
+const { Contact } = require('../../models/contactModel');
 
 const searchByName = async (req, res) => {
   const { name } = req.params;

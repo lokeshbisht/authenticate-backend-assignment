@@ -12,7 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use('/register', registerRoute);
-app.use('/login', registerRoute);
+app.use('/login', authenticate, loginRoute);
 app.use('/search', authenticate, searchRoute);
 app.use('/spam', authenticate, spamRoute);
 

@@ -1,5 +1,3 @@
-// routes/register.js
-
 const express = require('express');
 const { registerUser } = require('../controllers/registerController');
 

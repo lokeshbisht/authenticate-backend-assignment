@@ -1,4 +1,4 @@
-const { Contact } = require('../db');
+const { Contact } = require('../../models/contactModel');
 
 const markNumberAsSpam = async (req, res) => {
   const { phoneNumber } = req.body;

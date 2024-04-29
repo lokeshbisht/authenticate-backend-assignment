@@ -1,5 +1,3 @@
-// routes/search.js
-
 const express = require('express');
 const { searchByName, searchByPhoneNumber } = require('../controllers/searchController');
 

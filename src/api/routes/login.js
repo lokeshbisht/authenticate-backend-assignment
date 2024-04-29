@@ -1,5 +1,3 @@
-// routes/login.js
-
 const express = require('express');
 const { loginUser } = require('../controllers/loginController');
 

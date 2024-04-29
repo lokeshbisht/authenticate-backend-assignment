@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/database_name', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
-
-mongoose.connect('mongodb://localhost:27017/database_name')
+mongoose.connect(process.env.DATABASE_URL)
     .then(() => {
         console.log("Connection is successful")
     }).catch((err) => {
@@ -13,9 +8,3 @@ mongoose.connect('mongodb://localhost:27017/database_name')
     });
 
 module.exports = { User, Contact };
-
-
-return res.status(200).json({
-    message: "Auth Succe",
-    token: token
-})
