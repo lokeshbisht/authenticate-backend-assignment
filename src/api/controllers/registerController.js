@@ -1,16 +1,26 @@
-const express = require('express');
 const { User } = require('../db');
+const bcrypt = require('bcrypt');
 
-const router = express.Router();
-
-router.post('/', async (req, res) => {
+const registerUser = async (req, res) => {
   const { name, phoneNumber, email, password } = req.body;
   try {
-    const user = await User.create({ name, phoneNumber, email, password });
-    res.json(user);
+    if (!name || !phoneNumber) {
+      return res.status(400).json({ error: 'Name and phone number are mandatory' });
+    }
+
+    const existingUser = await User.findOne({ $or: [{ email }, { phoneNumber }] });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Email or phone number is already registered' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await User.create({ name, phoneNumber, email, password: hashedPassword });
+
+    res.json({ message: 'User registered successfully' });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-});
+};
 
-module.exports = router;
+module.exports = { registerUser };
