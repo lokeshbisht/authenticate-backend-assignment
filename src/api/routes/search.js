@@ -3,7 +3,15 @@ const { searchByName, searchByPhoneNumber } = require('../controllers/searchCont
 
 const router = express.Router();
 
-router.get('/name/:name', searchByName);
-router.get('/phoneNumber/:phoneNumber', searchByPhoneNumber);
+router.post('/', (req, res) => {
+  const { name, phoneNumber } = req.body;
+  if (name) {
+    return searchByName(req, res);
+  } else if (phoneNumber) {
+    return searchByPhoneNumber(req, res);
+  } else {
+    return res.status(400).json({ error: 'Name or phoneNumber is required' });
+  }
+});
 
 module.exports = router;

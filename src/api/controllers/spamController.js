@@ -12,7 +12,8 @@ const markNumberAsSpam = async (req, res) => {
     }
     res.status(200).json({ message: 'Number marked as spam' });
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    console.log(error.message)
+    res.status(500).json({ error: 'Error occured while marking number as spam' });
   }
 };
 

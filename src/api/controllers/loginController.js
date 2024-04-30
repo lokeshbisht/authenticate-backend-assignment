@@ -3,11 +3,19 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, phoneNumber, password } = req.body;
   try {
-    const user = await User.findOne({ email });
+    let user;
+    if (email) {
+      user = await User.findOne({ email });
+    } else if (phoneNumber) {
+      user = await User.findOne({ phoneNumber });
+    } else {
+      return res.status(400).json({ error: 'Phone number or email is requried' });
+    }
+
     if (!user) {
-      return res.status(400).json({ error: 'Email not found' });
+      return res.status(400).json({ error: 'User not found' });
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
@@ -18,11 +26,12 @@ const loginUser = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
 
     res.status(200).json({
-        message: "Authentication Successfull",
+        message: "Authentication Successful",
         token: token
     });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.log(error.message)
+    res.status(400).json({ error: "Error occured while logging in" });
   }
 };
 

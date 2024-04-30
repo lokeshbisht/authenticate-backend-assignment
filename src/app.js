@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
+require('dotenv').config();
+require('../src/db/conn');
 
 const authenticate = require('./middleware/authenticate');
 const registerRoute = require('./api/routes/register');
@@ -12,7 +14,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use('/register', registerRoute);
-app.use('/login', authenticate, loginRoute);
+app.use('/login', loginRoute);
 app.use('/search', authenticate, searchRoute);
 app.use('/spam', authenticate, spamRoute);
 

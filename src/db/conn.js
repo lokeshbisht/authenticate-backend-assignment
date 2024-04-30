@@ -7,4 +7,8 @@ mongoose.connect(process.env.DATABASE_URL)
         console.log("Error while connecting to database")
     });
 
-module.exports = { User, Contact };
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+module.exports = db;
