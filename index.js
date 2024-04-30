@@ -2,13 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 require('dotenv').config();
-require('../src/db/conn');
+require('./src/db/conn');
 
-const authenticate = require('./middleware/authenticate');
-const registerRoute = require('./api/routes/register');
-const loginRoute = require('./api/routes/login');
-const searchRoute = require('./api/routes/search');
-const spamRoute = require('./api/routes/spam');
+const authenticate = require('./src/middleware/authenticate');
+const registerRoute = require('./src/api/routes/register');
+const loginRoute = require('./src/api/routes/login');
+const searchRoute = require('./src/api/routes/search');
+const spamRoute = require('./src/api/routes/spam');
 
 const app = express();
 app.use(bodyParser.json());
